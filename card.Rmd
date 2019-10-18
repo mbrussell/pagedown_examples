@@ -1,0 +1,41 @@
+---
+name: Matt Russell, PhD
+title: | 
+       | *President & CEO*
+       | Arbor Custom Analytics LLC
+       | 
+       | arbor-analytics.com 
+       | Twitter: @arbor_analytics
+email: "matt@arbor-analytics.com"
+phone: "612-434-3847"
+paperwidth: 8.5in
+paperheight: 11in
+cols: 1
+rows: 1
+repeat: 1
+logo: "https://arbor-analytics.com/post/2019-07-14-using-google-forms-to-analyze-confidence-intervals-a-teaching-statistics-activity_files/arbor_horiz.png"
+googlefonts: "Source Sans Pro"
+size: 8
+output: pagedown::business_card
+---
+
+
+<!-- if you prefer black text on white background, set eval=TRUE on the chunk below -->
+
+```{css, eval=TRUE}
+.wrapper {
+  color: black;
+  font-size: 12pt;
+  background-color: white;
+  border: 4px solid white;
+  
+}
+title {
+  color: black;
+  font-size: 24pt;
+  
+}
+.coordinates {
+  color: #100;
+}
+```

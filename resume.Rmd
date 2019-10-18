@@ -1,0 +1,119 @@
+---
+title: "resume_example"
+author: "Matt Russell"
+output: pagedown::html_resume
+---
+
+Aside
+====================================
+
+![alt text](Matt.jpg)
+
+- <i class="fa fa-envelope"></i> [matt@arbor-analytics.com ](mailto:matt@arbor-analytics.com)
+- <i class="fa fa-github"></i> [github.com/mbrussell](https://github.com/mbrussell)
+- <i class="fa fa-linkedin"></i> [LinkedIn](www.linkedin.com/in/matthew-russell-70a94824)
+- <i class="fa fa-phone"></i> 612-434-3847
+
+Skills
+------------------------------------
+- *Forest analytics
+- *Timberland resource assessment
+- *Data management
+- *Forest growth and yield modeling
+- *Statistical modeling
+- *Machine learning
+- *Teaching data concepts to forest and natural resource professionals
+- *Leveraging existing data to solve new problems
+- *Independent research
+------------------------------------
+
+Made with [pagedown](https://github.com/rstudio/pagedown).
+
+Updated 17 October 2019.
+
+Main
+====================================
+
+Matt Russell {#title}
+------------------------------------
+
+Forest analytics professional with background in forestry research and education.  
+
+Background {data-icon=briefcase}
+------------------------------------
+
+### President/CEO
+Arbor Custom Analytics LLC
+
+Twin Cities, MN
+
+2019-
+
+### Associate Professor/Extension Specialist
+University of Minnesota, Department of Forest Resources
+
+St. Paul, MN
+
+2018-
+
+
+### Assistant Professor/Extension Specialist
+University of Minnesota, Department of Forest Resources
+
+St. Paul, MN
+
+2014-2018
+
+### Research Associate
+University of Minnesota, Department of Forest Resources
+
+St. Paul, MN
+
+2012-2014
+
+### Graduate Research Assistant
+University of Maine, School of Forest Resources
+
+Orono, ME
+
+2009-2012
+
+### Forest Data Manager
+USDA Forest Service, Penobscot Experimental Forest,
+
+Bradley, ME
+
+2008-2012
+
+
+### Forest Data Manager
+University of Maine, Cooperative Forestry Research Unit
+
+Orono, ME
+
+2008-2009
+
+
+Education {data-icon=graduation-cap}
+------------------------------------
+
+### University of Maine
+PhD, in Forest Resources
+
+Orono, ME
+
+2009-2012
+
+### Virginia Tech
+MS, Forestry
+
+Blacksburg, VA
+
+2006-2008
+
+### Paul Smith's College
+BS, Forestry (Biology concentration)
+
+Paul Smiths, NY
+
+2002-2006

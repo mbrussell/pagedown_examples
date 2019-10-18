@@ -1,0 +1,145 @@
+---
+title: "Assessing Vegetation Impacts from Deer Citizen Science Project: 2019 results"
+author: "Matt Russell"
+date: "`r Sys.Date()`"
+output:
+  pagedown::html_paged:
+    toc: false
+   #theme: lumen
+    self_contained: false
+    number_sections: true
+---
+# Overview
+The AVID program is a citizen science programs that monitors the impacts of deer in Minnesota's forests. Citizen science volunteers collect important data that will allow researchers to gain insights into forest health.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+setwd("C:/Users/russellm/Documents/Projects/AVID/AVID_reference")
+
+seed<-read.csv("AVID_seedlings.csv")
+plot<-read.csv("AVID_plots.csv")
+site<-read.csv("AVID_sites.csv")
+
+library(tidyverse)
+library(maps)
+library(mapdata)
+library(ggrepel)
+```
+
+## AVID volunteers have measured many difference species that deer prefer to browse.
+Here are the 15 species and their measured heights.
+
+```{r, echo = F}
+p.2018 <- ggplot(seed, aes(x=factor(Species), y=height1,fill=Species)) + 
+  geom_boxplot()+xlab(" ")+ylab("Seedling height (in)")+
+  theme(panel.background = element_rect(fill = "NA"),
+        axis.line=element_line(color="black"),
+        axis.title.x = element_text(size=12,color="black"),
+        axis.title.y = element_text(size=12,color="black"),
+        axis.text.x = element_blank(),
+        axis.text.y  = element_text(size=12,color="black"))
+p.2018
+```
+
+
+```{r, include=F}
+# Create a lookup table for all species and merge to data:
+  
+  Species<-c("Balsam fir", "Black ash","Bur oak", "Green ash", "Ironwood", "Northern red oak", "Oak","Quaking aspen","Red maple","Red pine", "Sugar maple", "Swamp white oak", "White oak","White pine", "Yellow birch")
+spp.group<-c("Pine/fir","Ash", "Oak", "Ash", "Other hardwoods", "Oak","Oak","Aspen","Maple","Pine/fir", "Maple", "Oak", "Oak","Pine/fir","Birch")
+species.names<-data.frame(Species,spp.group)
+  
+seed<-merge(seed,species.names,by=c("Species"))
+```
+
+# Data from 2019
+## We'll make a scatter plot that shows the measured heights.
+Note we have grouped the species into broader species groups.
+
+```{r, echo=F}
+p.2018 <- ggplot(seed, aes(x=factor(spp.group), y=height1)) + 
+  geom_point()+ geom_jitter()+
+  xlab(" ")+ylab("Seedling height (inches)")+
+  theme(panel.background = element_rect(fill = "NA"),
+        axis.line=element_line(color="black"),
+        axis.title.x = element_text(size=12,color="black"),
+        axis.title.y = element_text(size=12,color="black"),
+        axis.text.x = element_text(size=12,color="black",angle=45,hjust=1),
+        axis.text.y  = element_text(size=12,color="black"))
+p.2018
+```
+
+## Can we look at a specific volunteer's measurements?
+Make a graph that shows one volunteers measurements relative to all of the data.
+
+```{r, echo=F}
+seed$Recorder_Name<-ifelse(seed$SiteID=="DD-NS","Your data!","Other AVID data")
+
+p.2018 <- ggplot(seed, aes(x=factor(spp.group), y=height1,col=Recorder_Name)) + 
+  geom_point()+ geom_jitter()+
+  xlab(" ")+ylab("Seedling height (inches)")+
+  theme(panel.background = element_rect(fill = "NA"),
+        legend.title = element_blank(),
+        legend.position = "top",
+        legend.key=element_blank(),
+        axis.line=element_line(color="black"),
+        axis.title.x = element_text(size=12,color="black"),
+        axis.title.y = element_text(size=12,color="black"),
+       axis.text.x = element_text(size=12,color="black",angle=45,hjust=1),
+        axis.text.y  = element_text(size=12,color="black"),
+       legend.text = element_text(size=16,color="black"))
+p.2018
+```
+
+
+# Which are the most common tree species measured?
+Rank them by number of measurements.
+
+```{r, echo=F}
+avid.spp <-
+  seed %>%
+  group_by(Species) %>%
+  summarize(n.seedlings=n(),
+            mean.ht=round(mean(height1), 1),
+            sd.ht=round(sd(height1), 1)) %>%
+  arrange(desc(n.seedlings))
+
+knitr::kable((avid.spp[,]), caption = 'The most common tree species measured.')
+```
+
+# Program impacts
+## Make a map of where the data have been collected.
+Data have been collected from 18 locations.
+
+```{r, include=F}
+# Map
+
+states <- map_data("state")
+mn_df <- subset(states, region == "minnesota")
+counties <- map_data("county")
+mn_county <- subset(counties, region == "minnesota")
+
+mn_loc<-read.csv('C:\\Users\\russellm\\Documents\\Projects\\AVID\\AVID_reference\\mn_locations.csv')
+
+all_base <- ggplot(data = mn_df, mapping = aes(x = long, y = lat, group=group)) + 
+  coord_fixed(1.3) + 
+  geom_polygon(color = "grey", fill = "white")+
+  geom_polygon(color = "grey", fill = NA)+
+  geom_polygon(data = mn_county, fill = NA, color = "grey") +
+  geom_label_repel(data = mn_loc,aes(LON, LAT, label = Species),
+                   box.padding = 0.1, point.padding = 0.1,
+                   direction = "x",
+                   nudge_x = 6, nudge_y = 2, angle=200,
+                   fill = "gold", color = 'black', size = 2, inherit.aes=F) +
+  xlab("") + ylab("")+
+  theme(panel.background = element_rect(fill = "NA"),
+        axis.line=element_blank(),
+        axis.ticks=element_blank(),
+        axis.title.x = element_text(size=12,color="black"),
+        axis.title.y = element_text(size=12,color="black"),
+        axis.text = element_blank())
+```
+
+```{r, echo=F}
+all_base
+```
